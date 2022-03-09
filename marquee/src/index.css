@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+.ant-card-body {
+    height: 100%;
+}
+
+.trade-collapse-custom-panel > .ant-collapse-header {
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.token-widget-symbol  {
+    font-size: 10px;
+}
+
+.responsive-mr {
+    display: "flex";
+    align-items: "center";
+}
+@media only screen and (max-width: 900px){
+    .liquidity-symbols {
+        display: none;
+    }
+    .responsive-mr {
+        display: none;
+    }
+    .token-widget-symbol  {
+        font-size: 10px;
+    }
+    .liquidity-widget-amnt {
+        font-size: 10px;
+    }
+    .liquidity-widget-subamnt {
+        font-size: 10px;
+    }
+}
