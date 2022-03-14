@@ -1,18 +1,17 @@
-/* eslint-disable camelcase */
-/* eslint-disable react/prop-types */
-
-import {
-    abbreviateNumber,
-    mapExchangeImage } from "../utils/utility";
-// import React, { useState } from "react";
+import { Data } from "../types/recentSwaps";
+import { abbreviateNumber, mapExchangeImage, mapExchangeName } from "../utils/utility";
 import { TokenImageRound } from "./TokenImageRound";
-import { Card, Collapse } from "antd";
-// import FeatherIcon from "feather-icons-react";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import { Card, Stack, styled, Typography } from "@mui/material";
+import Grid, { GridProps } from "@mui/material/Grid";
 import moment, { Moment } from "moment";
 import { useEffect, useState } from "react";
-import { Data } from "types/recentSwaps";
 
-const BORDER_RADIUS = 16;
+const GridItem = styled(Grid)<GridProps>(() => ({
+    display: `flex`,
+    placeContent: `center`,
+}));
+
 const IMAGE_WIDTH = 20;
 const DARK_GREY = `#101828`;
 const MEDIUM_GREY = `#343c4c`;
@@ -59,10 +58,12 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
         price1
     } = data;
 
-    const { Grid } = Card;
-    const { Panel } = Collapse;
+    // const { Grid } = Card;
+    // const { Panel } = Collapse;
     const [ hover, setHover ] = useState(false);
     const [ timeSince, setTimeSince ] = useState(moment.utc(time).from(currentTime));
+
+    const sellSide = parseFloat(amount0) > 0;
 
     const hasBalance = () => {
         if (parseFloat(balance0) > 0 || parseFloat(balance1) > 0) return true;
@@ -74,103 +75,92 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
     }, [ currentTime ]);
 
     return (
-        <div style={{ margin: `0 4px` }}>
-            <Card
-                className="trade-collapse-custom-panel"
-                style={{
-                    background: MEDIUM_GREY,
-                    borderRadius: BORDER_RADIUS,
-                    borderWidth: 0,
-                    flex: 1,
-                    height: `100%`,
-                }}
-                bodyStyle={{ padding: 0, display: `flex` }}
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
+        <Card sx={{ height: `100%`, margin: `0px 8px`, borderRadius: 3 }}>
+            <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="stretch"
+                sx={{ height: `100%` }}
             >
-                <Grid
-                    style={{
-                        display: `flex`,
-                        flexDirection: `column`,
-                        placeContent: `center`,
-                        textAlign: `center`,
-                        backgroundColor: LIGHT_GREY,
-                        borderRadius: `${BORDER_RADIUS}px 0 0 ${BORDER_RADIUS}px`,
-                        padding: `8px`,
-                        minWidth: `80px`,
-                    }}
-                >
-                    <span style={{ color: `white`, fontSize: `14px` }}>
-                        ${`${abbreviateNumber(amountusd)} `}
-                    </span>
-                    <span style={{ color: `rgba(255,255,255,0.8)`, fontSize: `11px` }}>
-                        {timeSince}
-                    </span>
-                </Grid>
-
-                <Grid
-                    style={{
-                        display: `flex`,
-                        flexDirection: `row`,
-                        placeContent: `center`,
-                        padding: `8px`,
-                        backgroundColor: MEDIUM_GREY,
-                        width: `33%`,
-                    }}
-                >
-                    <TokenImageRound
-                        contract={token0}
-                        network={network}
-                        symbol={token0_symbol}
-                        size={IMAGE_WIDTH}
-                    />
-                    <span className="token-widget-symbol" style={{ paddingLeft: 4, color: `rgba(255,255,255,0.8)` }}>
-                        <span style={{ color: `white` }}>
-                            {`${abbreviateNumber(amount0)} `}
-                        </span>
-                        {token0_symbol}
-                    </span>
-                </Grid>
-
-                <Grid
-                    style={{
-                        backgroundColor: LIGHT_GREY,
-                        padding: `12px`,
-                    }}
-                >
-                    <img
-                        src={mapExchangeImage(exchange)}
-                        alt=""
-                        width={IMAGE_WIDTH}
-                        style={{ borderRadius: 50, marginBottom: `5px` }}
-                    />
-                </Grid>
-
-                <Grid
-                    style={{
-                        borderRadius: `0 ${BORDER_RADIUS}px ${BORDER_RADIUS}px 0`,
-                        display: `flex`,
-                        flexDirection: `row`,
-                        placeContent: `center`,
-                        padding: `8px`,
-                        backgroundColor: MEDIUM_GREY,
-                        width: `33%`,
-                    }}
-                >
-                    <TokenImageRound
-                        contract={token1}
-                        network={network}
-                        symbol={token1_symbol}
-                        size={IMAGE_WIDTH}
-                    />
-                    <span className="token-widget-symbol" style={{ paddingLeft: 4, color: `rgba(255,255,255,0.8)` }}>
-                        <span style={{ color: `white` }}>
-                            {`${abbreviateNumber(amount1)} `}
-                        </span>
-                        {token1_symbol}
-                    </span>
-                </Grid>
-            </Card>
-        </div>
+                <GridItem item sx={{ background: DARK_GREY, p: 1 }}>
+                    { network && (
+                        <img
+                            src={require(`/src/assets/networks/${network}${hover ? `-hover` : ``}.svg`)}
+                            alt=""
+                            width={IMAGE_WIDTH}
+                        />
+                    )}
+                </GridItem>
+                <GridItem item sx={{ background: LIGHT_GREY, px: 2, py: 1 }}>
+                    <Stack justifyContent="center" alignItems="center">
+                        <Typography variant="body1">
+                            ${`${abbreviateNumber(amountusd)}`}
+                        </Typography>
+                        <Typography 
+                            align="center"
+                            variant="subtitle1" 
+                            sx={{ minWidth: 60 }} 
+                        >
+                            {timeSince}
+                        </Typography>
+                    </Stack>
+                </GridItem>
+                <GridItem item sx={{ background: MEDIUM_GREY, px: 2, py: 1 }}>
+                    <Stack direction="row" alignItems="center">
+                        <TokenImageRound
+                            contract={sellSide ? token0 : token1}
+                            network={network}
+                            symbol={sellSide ? token0_symbol : token1_symbol}
+                            size={IMAGE_WIDTH}
+                        />
+                        <Typography variant="body1" component="span" pl={1}>
+                            {`${abbreviateNumber(sellSide ? amount0 : amount1)} `} {sellSide ? token0_symbol : token1_symbol}
+                        </Typography>
+                    </Stack>
+                </GridItem>
+                <GridItem item sx={{ background: LIGHT_GREY, p: 1 }}>
+                    <Stack alignItems="center" justifyContent="center">
+                        <Stack direction="row" alignItems="center" justifyContent="center">
+                            <img
+                                src={mapExchangeImage(exchange)}
+                                alt=""
+                                width={IMAGE_WIDTH}
+                                height={IMAGE_WIDTH}
+                                style={{ borderRadius: 50 }}
+                            />
+                            <ArrowRightAltIcon sx={{ m: -0.5, color: `white` }} />
+                        </Stack>
+                        <Typography variant="caption">
+                            {mapExchangeName(exchange)}
+                        </Typography>
+                    </Stack>
+                </GridItem>
+                <GridItem item sx={{ background: MEDIUM_GREY, px: 2, py: 1 }}>
+                    <Stack direction="row" alignItems="center">
+                        <TokenImageRound
+                            contract={sellSide ? token1 : token0}
+                            network={network}
+                            symbol={sellSide ? token1_symbol : token0_symbol}
+                            size={IMAGE_WIDTH}
+                        />
+                        <Typography variant="body1" component="span" pl={1}>
+                            {`${abbreviateNumber(sellSide ? amount1 : amount0)} `} 
+                            {sellSide ? token1_symbol : token0_symbol}
+                        </Typography>
+                    </Stack>
+                </GridItem>
+                <GridItem item sx={{ background: DARK_GREY, p: 1 }}>
+                    <Stack justifyContent="center" alignItems="center">
+                        <Typography variant="caption">
+                            {tx.slice(0, 4)}...{tx.slice(tx.length - 4)}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            Tx ID 
+                        </Typography>
+                    </Stack>
+                </GridItem>
+            </Grid>
+        </Card>
     );
 };

@@ -1,6 +1,5 @@
 /* eslint-disable no-bitwise */
 /* eslint-disable no-plusplus */
-/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable eqeqeq */
 /**
  * Return ellipsis of a given string

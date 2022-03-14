@@ -1,9 +1,49 @@
 import './App.css';
 import { TradeWidget } from '../components/TradeWidget';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import moment from 'moment';
 import { useEffect,useState } from 'react';
 import Marquee from 'react-fast-marquee';
 import { Data, RecentSwapsResponse } from 'types/recentSwaps';
+
+const theme = createTheme({
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: `white`,
+                }
+            }
+        }
+    },
+    typography: {
+        fontFamily: [
+            `Inter`,
+            `-apple-system`,
+            `BlinkMacSystemFont`,
+            `"Segoe UI"`,
+            `Roboto`,
+            `"Helvetica Neue"`,
+            `Arial`,
+            `sans-serif`,
+            `"Apple Color Emoji"`,
+            `"Segoe UI Emoji"`,
+            `"Segoe UI Symbol"`,
+        ].join(`,`),
+        body1: {
+            fontSize: `1em`,
+            color: `white`,
+        },
+        subtitle1: {
+            fontSize: `0.85em`,
+            color: `white`,
+        },
+        caption: {
+            fontSize: `0.75em`,
+            color: `rgb(255,255,255 / 0.8)`,
+        },
+    }
+});
 
 function App () {
     const [ arr, setArr ] = useState<Data[]>();
@@ -33,13 +73,19 @@ function App () {
     }, []);
 
     return (
-        <div className="App">
-            <Marquee gradientColor={[0,0,0]} speed={20}>
-                {arr && arr.map((a, i) =>
-                    <TradeWidget key={i} data={a} currentTime={currentTime} />
-                )}
-            </Marquee>
-        </div>
+        <CssBaseline>
+            <ThemeProvider theme={theme}>
+                <Marquee 
+                    gradientColor={[30,41,57]} 
+                    gradientWidth={120} 
+                    speed={30}
+                >
+                    {arr && arr.map((a, i) =>
+                        <TradeWidget key={i} data={a} currentTime={currentTime} />
+                    )}
+                </Marquee>
+            </ThemeProvider>
+        </CssBaseline>
     );
 }
 

@@ -1,7 +1,7 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 import path from "path";
+import { defineConfig } from "vite";
+import vitePluginRequire from "vite-plugin-require";
 
 // https://vitejs.dev/config/
 // https://github.com/capaj/vite-lingui-poc
@@ -10,6 +10,7 @@ export default defineConfig({
     envDir: `./env`,
     plugins: [
         react(),
+        vitePluginRequire(),
     ],
     resolve:{
         alias:{
