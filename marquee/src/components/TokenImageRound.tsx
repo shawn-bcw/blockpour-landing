@@ -1,11 +1,9 @@
-import { Content } from "antd/lib/layout/layout";
-import { useState } from "react";
 import { 
-    stringToColour, 
-    networkIDMap
-} from "../utils/utility";
+    networkIDMap,
+    stringToColour } from "../utils/utility";
+import { useState } from "react";
 
-export const ImageRound = ({ src, size, position = "absolute" }: { src: any, size: any, position?: any }) => {
+export const ImageRound = ({ src, size, position = `absolute` }: { src: any, size: any, position?: any }) => {
     const [ hasError, setError ] = useState(false);
 
     return (
@@ -15,11 +13,11 @@ export const ImageRound = ({ src, size, position = "absolute" }: { src: any, siz
             height={size}
             width={size}
             style={{
-                backgroundColor: "white",
+                backgroundColor: `white`,
                 borderRadius: 50,
                 display: hasError ? `none` : `flex`,
                 position,
-                ...(position === "absolute" && { left: 0 })
+                ...(position === `absolute` && { left: 0 })
             }}
             onError={event => setError(true)}
         />
@@ -45,7 +43,7 @@ export const TokenImageRound = ({ contract, network, symbol, size }: { contract:
     )}.png`;
     // const imageSrcFallback = `https://raw.githubusercontent.com/alexandrebouttier/coinmarketcap-icons-cryptos/main/icons/${symbol.toLowerCase()}.png`;
     return (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: `relative` }}>
             <ImageRound src={imageSrc} size={size} />
             <FallbackAvatarRound string={contract} size={size} />
         </div>

@@ -7,5 +7,7 @@ ReactDOM.render(
     <React.StrictMode>
         <App />
     </React.StrictMode>,
-    document.getElementById(`marquee-container`)
+    import.meta.env.VITE_APP_ENV === `prod` ? 
+        document.getElementById(`marquee-container`) :
+        document.getElementById(`root`) 
 );
