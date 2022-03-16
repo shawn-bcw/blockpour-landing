@@ -45,39 +45,94 @@ const mapExchangeTradeURL = (exchange, token) => {
 
 const mapExchangeImage = exchange => {
     switch (exchange) {
-        case `SS`:
-            return `https://s2.coinmarketcap.com/static/img/coins/64x64/6758.png`;
-        case `UNIV3`:
-            return `https://assets.coingecko.com/markets/images/665/small/uniswap-v3.png?1620241698`;
-        case `0x4e66ad900d9857160e132fda1b1d78724a6de3e3`:
-        case `0x1faabc806c1f93f71917a29e4c4eb51c9cd26d12`:
-        case `0xc5bc174cb6382fbab17771d05e6a918441deceea`:
-            return `https://assets.coingecko.com/coins/images/12504/small/uniswap-uni.png?1600306604`;
-        case `Spirit`:
-            return `https://s2.coinmarketcap.com/static/img/coins/64x64/10239.png`;
-        case `Spooky`:
-        case `spLP`:
-        case `SLP`:
-        case `SOUL-LP`:
-        case `ELP`:
-            return `https://s2.coinmarketcap.com/static/img/coins/64x64/9608.png`;
-            // Quickswap
-        case `0x5757371414417b8c6caad45baef941abc7d3ab32`:
-            return `https://assets.coingecko.com/coins/images/13970/small/1_pOU6pBMEmiL-ZJVb0CYRjQ.png?1613386659`;
-            // Plasma Swap
-        case `0xd87ad19db2c4ccbf897106de034d52e3dd90ea60`:
-            return `https://s2.coinmarketcap.com/static/img/coins/64x64/7870.png`;
-        case `Pangolin`:
-        case `PGL`:
-            return `https://assets.coingecko.com/coins/images/14023/small/pangolin.jpg?1613743598`;
-        case `Joe`:
-        case `JLP`:
-        case `TLP`:
-            return `https://assets.coingecko.com/coins/images/17569/small/joe_200x200.png?1628497750`;
-        default:
-            return `https://assets.coingecko.com/coins/images/12504/small/uniswap-uni.png?1600306604`;
+      case "SS":
+      case "0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac":
+      case "0xc35dadb65012ec5796536bd9864ed8773abc74c4":
+        return "https://s2.coinmarketcap.com/static/img/coins/64x64/6758.png";
+      case "UNIV3":
+      case "0x1f98431c8ad98523631ae4a59f267346ea31f984":
+        return "https://assets.coingecko.com/markets/images/665/small/uniswap-v3.png?1620241698";
+      case "UNIV2":
+      case "0x4e66ad900d9857160e132fda1b1d78724a6de3e3":
+      case "0x1faabc806c1f93f71917a29e4c4eb51c9cd26d12":
+      case "0xc5bc174cb6382fbab17771d05e6a918441deceea":
+      case "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f":
+        return "https://assets.coingecko.com/coins/images/12504/small/uniswap-uni.png?1600306604";
+      case "Spirit":
+      case "0xef45d134b73241eda7703fa787148d9c9f4950b0":
+        return "https://s2.coinmarketcap.com/static/img/coins/64x64/10239.png";
+      case "Spooky":
+      case "0x152ee697f2e276fa89e96742e9bb9ab1f2e61be3":
+      case "spLP":
+      case "SLP":
+      case "SOUL-LP":
+      case "ELP":
+        return "https://s2.coinmarketcap.com/static/img/coins/64x64/9608.png";
+      // Quickswap
+      case "QS":
+      case "0x5757371414417b8c6caad45baef941abc7d3ab32":
+      case "QS":
+        return "https://assets.coingecko.com/coins/images/13970/small/1_pOU6pBMEmiL-ZJVb0CYRjQ.png?1613386659";
+      // Plasma Swap
+      case "0xd87ad19db2c4ccbf897106de034d52e3dd90ea60":
+        return "https://s2.coinmarketcap.com/static/img/coins/64x64/7870.png";
+      case "Pangolin":
+      case "PGL":
+        return "https://assets.coingecko.com/coins/images/14023/small/pangolin.jpg?1613743598";
+      case "Joe":
+      case "0x9ad6c38be94206ca50bb0d90783181662f0cfa10":
+      case "JLP":
+      case "TLP":
+        return "https://assets.coingecko.com/coins/images/17569/small/joe_200x200.png?1628497750";
+      default:
+        return "";
     }
-};
+  };
+  
+  const mapExchangeName = exchange => {
+    const defaultVal = `${exchange.slice(0, 4)}...${exchange.slice(
+      exchange.length - 4
+    )}`;
+    switch (exchange) {
+      case "SS":
+      case "0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac":
+      case "0xc35dadb65012ec5796536bd9864ed8773abc74c4":
+        return "Sushiswap";
+      case "UNIV3":
+      case "0x1f98431c8ad98523631ae4a59f267346ea31f984":
+        return "Uniswap V3";
+      case "UNIV2":
+      case "0x4e66ad900d9857160e132fda1b1d78724a6de3e3":
+      case "0x1faabc806c1f93f71917a29e4c4eb51c9cd26d12":
+      case "0xc5bc174cb6382fbab17771d05e6a918441deceea":
+      case "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f":
+        return "Uniswap V2";
+      case "Joe":
+      case "JOE":
+      case "0x9ad6c38be94206ca50bb0d90783181662f0cfa10":
+      case "JLP":
+        return "Trader Joe";
+      case "QS":
+      case "0x5757371414417b8c6caad45baef941abc7d3ab32":
+        return "Quickswap";
+      case "Spooky":
+      case "0x152ee697f2e276fa89e96742e9bb9ab1f2e61be3":
+      case "spLP":
+      case "ELP":
+      case "Xdao-LP":
+        return "Spooky Swap";
+      case "Spirit":
+      case "0xef45d134b73241eda7703fa787148d9c9f4950b0":
+      case "SLP":
+        return "Spirit Swap";
+      case "Pangolin":
+      case "PNG":
+      case "PGL":
+        return "Pangolin";
+      default:
+        return defaultVal;
+    }
+  };
 
 const headerSearchImage = network => {
     switch (network) {
@@ -130,37 +185,6 @@ const networkNameMap = network => {
         default:
     }
     return url;
-};
-
-const mapExchangeName = exchange => {
-    switch (exchange) {
-        case `SS`:
-            return `Sushiswap`;
-        case `UNIV3`:
-            return `Uniswap V3`;
-        case `UNIV2`:
-            return `Uniswap V2`;
-        case `Joe`:
-        case `JOE`:
-        case `JLP`:
-            return `Trader Joe`;
-        case `QS`:
-            return `Quickswap`;
-        case `Spooky`:
-        case `spLP`:
-        case `ELP`:
-        case `Xdao-LP`:
-            return `Spooky Swap`;
-        case `Spirit`:
-        case `SLP`:
-            return `Spirit Swap`;
-        case `Pangolin`:
-        case `PNG`:
-        case `PGL`:
-            return `Pangolin`;
-        default:
-            return ``;
-    }
 };
 
 const abbreviateNumber = nn => {

@@ -122,6 +122,7 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
                 <GridItem item sx={{ background: LIGHT_GREY, p: 1 }}>
                     <Stack alignItems="center" justifyContent="center">
                         <Stack direction="row" alignItems="center" justifyContent="center">
+                            {mapExchangeImage(exchange) &&
                             <img
                                 src={mapExchangeImage(exchange)}
                                 alt=""
@@ -129,7 +130,7 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
                                 height={IMAGE_WIDTH}
                                 style={{ borderRadius: 50 }}
                             />
-                            <ArrowRightAltIcon sx={{ m: -0.5, color: `white` }} />
+}
                         </Stack>
                         <Typography variant="caption">
                             {mapExchangeName(exchange)}

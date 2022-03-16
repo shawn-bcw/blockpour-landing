@@ -38,9 +38,9 @@ const FallbackAvatarRound = ({ string, size }: { string: string, size: any }) =>
 );
 
 export const TokenImageRound = ({ contract, network, symbol, size }: { contract: any, network: any, symbol: any, size: any }) => {
-    const imageSrc = `https://cdn.blockpour.com/${contract}-${networkIDMap(
-        network
-    )}.png`;
+    const getNetwork = networkIDMap(contract.split("-").pop());
+    const getContract = contract.split("-").shift();
+    const imageSrc = `https://cdn.blockpour.com/${getContract}-${getNetwork}.png`;
     // const imageSrcFallback = `https://raw.githubusercontent.com/alexandrebouttier/coinmarketcap-icons-cryptos/main/icons/${symbol.toLowerCase()}.png`;
     return (
         <div style={{ position: `relative` }}>
