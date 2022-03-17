@@ -1,7 +1,6 @@
 import { Data } from "../types/recentSwaps";
 import { abbreviateNumber, mapExchangeImage, mapExchangeName } from "../utils/utility";
 import { TokenImageRound } from "./TokenImageRound";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Card, Stack, styled, Typography } from "@mui/material";
 import Grid, { GridProps } from "@mui/material/Grid";
 import moment, { Moment } from "moment";
@@ -122,14 +121,15 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
                 <GridItem item sx={{ background: LIGHT_GREY, p: 1 }}>
                     <Stack alignItems="center" justifyContent="center">
                         <Stack direction="row" alignItems="center" justifyContent="center">
-                            <img
-                                src={mapExchangeImage(exchange)}
-                                alt=""
-                                width={IMAGE_WIDTH}
-                                height={IMAGE_WIDTH}
-                                style={{ borderRadius: 50 }}
-                            />
-                            <ArrowRightAltIcon sx={{ m: -0.5, color: `white` }} />
+                            {mapExchangeImage(exchange) &&
+                                <img
+                                    src={mapExchangeImage(exchange)}
+                                    alt=""
+                                    width={IMAGE_WIDTH}
+                                    height={IMAGE_WIDTH}
+                                    style={{ borderRadius: 50 }}
+                                />
+                            }
                         </Stack>
                         <Typography variant="caption">
                             {mapExchangeName(exchange)}
