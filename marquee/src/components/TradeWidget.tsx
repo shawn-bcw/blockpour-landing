@@ -1,3 +1,4 @@
+import NetworkLogo from "../assets/networks/networks";
 import { Data } from "../types/recentSwaps";
 import { abbreviateNumber, mapExchangeImage, mapExchangeName } from "../utils/utility";
 import { TokenImageRound } from "./TokenImageRound";
@@ -57,9 +58,6 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
         price1
     } = data;
 
-    // const { Grid } = Card;
-    // const { Panel } = Collapse;
-    const [ hover, setHover ] = useState(false);
     const [ timeSince, setTimeSince ] = useState(moment.utc(time).from(currentTime));
 
     const sellSide = parseFloat(amount0) > 0;
@@ -74,7 +72,7 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
     }, [ currentTime ]);
 
     return (
-        <Card sx={{ height: `100%`, margin: `0px 8px`, borderRadius: 3 }}>
+        <Card sx={{ height: `100%`, margin: `0px 8px`, borderRadius: 3, backgroundColor: `transparent` }}>
             <Grid
                 container
                 direction="row"
@@ -84,11 +82,7 @@ export const TradeWidget = ({ data, currentTime }: { data: Data, currentTime: Mo
             >
                 <GridItem item sx={{ background: DARK_GREY, p: 1 }}>
                     { network && (
-                        <img
-                            src={require(`/src/assets/networks/${network}${hover ? `-hover` : ``}.svg`)}
-                            alt=""
-                            width={IMAGE_WIDTH}
-                        />
+                        <NetworkLogo network={network} />
                     )}
                 </GridItem>
                 <GridItem item sx={{ background: LIGHT_GREY, px: 2, py: 1 }}>
